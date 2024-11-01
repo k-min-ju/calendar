@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePickerProps } from 'react-datepicker';
 import { SetState } from '@/types/common.ts';
+import { TableCellProps } from '@mui/material/TableCell/TableCell';
 
 export interface HolidayResponse {
   date: string;
@@ -12,6 +13,12 @@ export interface HolidayResponse {
   counties: string | null;
   launchYear: string | null;
   types: string[];
+}
+
+export interface SearchHoliday {
+  holidayDate: string;
+  dayOfTheWeek: string;
+  holidayInfo: string;
 }
 
 export type CustomDatePickerProps = DatePickerProps & {
@@ -26,5 +33,23 @@ export type CustomDatePickerProps = DatePickerProps & {
 export interface SearchBtnProps {
   fromDate: Date;
   toDate: Date;
-  setHolidayResponse: SetState<HolidayResponse[]>;
+  setHolidayRows: SetState<SearchHoliday[]>;
+  setIsShowHolidayList: SetState<boolean>;
+}
+
+export type FormatDate = 'yyyy-mm-dd' | 'yyyy-mm' | 'mm-dd' | 'yyyymmdd' | 'yyyymm' | 'mmdd';
+
+export interface TableColumns {
+  label: string;
+  tableCellProps?: TableCellProps;
+}
+
+export interface TableRows<T> {
+  data: T[];
+  tableCellProps?: TableCellProps[];
+}
+
+export interface CommonTableProps<T> {
+  columns: TableColumns[];
+  rows: TableRows<T>[];
 }

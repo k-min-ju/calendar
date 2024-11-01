@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ReactDatePicker, SearchBtn } from '@/components';
+import { CommonTable, ReactDatePicker, SearchBtn } from '@/components';
 import { SEARCH_MAX_DATE } from '@/configs/constants';
-import { HolidayResponse, UseState } from '@/types';
+import { SearchHoliday, TableColumns, TableRows, UseState } from '@/types';
+import { TableCellProps } from '@mui/material/TableCell/TableCell';
 
 /**
  * Calendar Component
@@ -14,10 +15,18 @@ export default function Calendar() {
   const [fromDate, setFromDate]: UseState<Date> = useState<Date>(new Date(today.getFullYear(), today.getMonth(), 1));
   const [toDate, setToDate]: UseState<Date> = useState<Date>(new Date(today.getFullYear(), today.getMonth() + 1, 0));
   const [isToDatePickerOpen, setIsToDatePickerOpen]: UseState<boolean> = useState<boolean>(false);
-  const [holidayResponse, setHolidayResponse]: UseState<HolidayResponse[]> = useState<HolidayResponse[]>([]);
+  const [holidayRows, setHolidayRows]: UseState<SearchHoliday[]> = useState<SearchHoliday[]>([]);
+  const [isShowHolidayList, setIsShowHolidayList]: UseState<boolean> = useState<boolean>(false);
 
   const fromMinDate: Date = new Date(toDate.getFullYear() - 2, toDate.getMonth(), toDate.getDate());
   const toMaxDate: Date = new Date(fromDate.getFullYear() + 2, fromDate.getMonth(), fromDate.getDate());
+  const tableColumns: TableColumns[] = [
+    { label: '날짜', tableCellProps: { align: 'center' } },
+    { label: '요일', tableCellProps: { align: 'center' } },
+    { label: '공휴일', tableCellProps: { align: 'center' } }
+  ];
+  const rowTableCellProps: TableCellProps[] = Array.from({ length: holidayRows.length }, () => ({ align: 'center' }));
+  const tableRows: TableRows<SearchHoliday>[] = [{ data: holidayRows, tableCellProps: rowTableCellProps }];
 
   // from date picker change event
   const fromDateChange = (date: Date | null): void => {
@@ -29,6 +38,11 @@ export default function Calendar() {
   const toDateChange = (date: Date | null): void => {
     if (date) setToDate(date);
     setIsToDatePickerOpen(false);
+  };
+
+  // holiday count click event
+  const holidayCntClick = (_event: React.MouseEvent<HTMLSpanElement>): void => {
+    setIsShowHolidayList(true);
   };
 
   return (
@@ -54,8 +68,17 @@ export default function Calendar() {
           dateFormat="yyyy-MM-dd"
           isToDatePickerOpen={isToDatePickerOpen}
         />
-        <SearchBtn fromDate={fromDate} toDate={toDate} setHolidayResponse={setHolidayResponse} />
+        <SearchBtn
+          fromDate={fromDate}
+          toDate={toDate}
+          setHolidayRows={setHolidayRows}
+          setIsShowHolidayList={setIsShowHolidayList}
+        />
       </div>
+      <div className="calendar-holiday-count">
+        공휴일 수 <span onClick={holidayCntClick}>{holidayRows.length}</span>
+      </div>
+      {isShowHolidayList && <CommonTable columns={tableColumns} rows={tableRows} />}
     </>
   );
 }

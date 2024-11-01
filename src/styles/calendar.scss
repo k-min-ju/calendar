@@ -1,17 +1,24 @@
 .calendar-container {
-  height: 100%;
-  margin: 5% 10% 0 10%;
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  gap: 5px;
 
   .calendar-header {
-    margin-bottom: 10px;
+    text-align: center;
+    margin: 10px 0;
   }
 
   .calendar-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
     margin-bottom: 10px;
+    width: 100%;
   }
 
   .calendar-holiday-count {
+    text-align: center;
     margin-bottom: 10px;
 
     span {
@@ -39,7 +46,6 @@
     box-shadow: inset 0 2px 2px #e9e9e9;
     line-height: 16px;
     padding: 5px 10px 5px 25px;
-    margin-right: 5px;
   }
 
   .react-datepicker__month-year-dropdown-container {
@@ -53,6 +59,7 @@
   }
 
   .search-btn {
+    min-width: 76px;
     line-height: 16px;
     border: 1px solid #aeaeae;
     color: black;
