@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ReactDatePicker } from '@/components';
+import { ReactDatePicker, SearchBtn } from '@/components';
 import { SEARCH_MAX_DATE } from '@/configs/constants';
-import { UseState } from '@/types';
+import { HolidayResponse, UseState } from '@/types';
 
 /**
  * Calendar Component
@@ -14,6 +14,7 @@ export default function Calendar() {
   const [fromDate, setFromDate]: UseState<Date> = useState<Date>(new Date(today.getFullYear(), today.getMonth(), 1));
   const [toDate, setToDate]: UseState<Date> = useState<Date>(new Date(today.getFullYear(), today.getMonth() + 1, 0));
   const [isToDatePickerOpen, setIsToDatePickerOpen]: UseState<boolean> = useState<boolean>(false);
+  const [holidayResponse, setHolidayResponse]: UseState<HolidayResponse[]> = useState<HolidayResponse[]>([]);
 
   const fromMinDate: Date = new Date(toDate.getFullYear() - 2, toDate.getMonth(), toDate.getDate());
   const toMaxDate: Date = new Date(fromDate.getFullYear() + 2, fromDate.getMonth(), fromDate.getDate());
@@ -53,6 +54,7 @@ export default function Calendar() {
           dateFormat="yyyy-MM-dd"
           isToDatePickerOpen={isToDatePickerOpen}
         />
+        <SearchBtn fromDate={fromDate} toDate={toDate} setHolidayResponse={setHolidayResponse} />
       </div>
     </>
   );

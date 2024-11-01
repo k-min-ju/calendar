@@ -11,6 +11,24 @@
     margin-bottom: 10px;
   }
 
+  .calendar-holiday-count {
+    margin-bottom: 10px;
+
+    span {
+      color: red;
+      cursor: pointer;
+    }
+  }
+
+  .table-container-wrapper {
+    display: flex;
+    justify-content: center;
+
+    .calendar-holiday-table {
+      width: 70%;
+    }
+  }
+
   .react-datepicker__tab-loop {
     display: inline-block;
   }
@@ -32,5 +50,11 @@
     color: black;
     width: 14px;
     height: 14px;
+  }
+
+  .search-btn {
+    line-height: 16px;
+    border: 1px solid #aeaeae;
+    color: black;
   }
 }
