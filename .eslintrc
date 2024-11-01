@@ -27,7 +27,13 @@
     }
   },
   "rules": {
-    "no-unused-vars": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": "error",
     "@typescript-eslint/no-explicit-any": "error",
