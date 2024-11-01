@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
+import * as ReactSpinners from 'react-spinners';
 import { DatePickerProps } from 'react-datepicker';
 import { SetState } from '@/types/common.ts';
 import { TableCellProps } from '@mui/material/TableCell/TableCell';
@@ -52,4 +53,13 @@ export interface TableRows<T> {
 export interface CommonTableProps<T> {
   columns: TableColumns[];
   rows: TableRows<T>[];
+}
+
+export interface SpinnerProps {
+  spinnerType: keyof typeof ReactSpinners;
+  size?: number;
+  color?: string;
+  loading: boolean;
+  cssOverride?: CSSProperties;
+  speedMultiplier?: number;
 }
