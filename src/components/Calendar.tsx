@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { CommonTable, ReactDatePicker, SearchBtn } from '@/components';
+import { CommonTable, ReactDatePicker, SearchBtn, Spinner } from '@/components';
 import { SEARCH_MAX_DATE } from '@/configs/constants';
 import { SearchHoliday, TableColumns, TableRows, UseState } from '@/types';
 import { TableCellProps } from '@mui/material/TableCell/TableCell';
+import { useLoading } from '@/context/LoadingProvider.tsx';
 
 /**
  * Calendar Component
@@ -17,6 +18,7 @@ export default function Calendar() {
   const [isToDatePickerOpen, setIsToDatePickerOpen]: UseState<boolean> = useState<boolean>(false);
   const [holidayRows, setHolidayRows]: UseState<SearchHoliday[]> = useState<SearchHoliday[]>([]);
   const [isShowHolidayList, setIsShowHolidayList]: UseState<boolean> = useState<boolean>(false);
+  const { isLoading } = useLoading();
 
   const fromMinDate: Date = new Date(toDate.getFullYear() - 2, toDate.getMonth(), toDate.getDate());
   const toMaxDate: Date = new Date(fromDate.getFullYear() + 2, fromDate.getMonth(), fromDate.getDate());
@@ -47,6 +49,15 @@ export default function Calendar() {
 
   return (
     <>
+      {isLoading ? (
+        <Spinner
+          spinnerType="MoonLoader"
+          loading={isLoading}
+          color="#1400b7"
+          size={80}
+          cssOverride={{ top: '50%', left: '50%' }}
+        />
+      ) : null}
       <div className="calendar-search-bar">
         <ReactDatePicker
           className="react-datepicker-input from-datepicker"
