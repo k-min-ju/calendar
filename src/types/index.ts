@@ -6,6 +6,7 @@ export type {
   SearchBtnProps,
   SearchHoliday,
   SpinnerProps,
+  SpinnerTypeKeys,
   TableColumns,
   TableRows
 } from '@/types/calendar';

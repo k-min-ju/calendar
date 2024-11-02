@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import * as ReactSpinners from 'react-spinners';
 import { DatePickerProps } from 'react-datepicker';
 import { SetState } from '@/types/common.ts';
@@ -55,11 +55,8 @@ export interface CommonTableProps<T> {
   rows: TableRows<T>[];
 }
 
-export interface SpinnerProps {
-  spinnerType: keyof typeof ReactSpinners;
-  size?: number;
-  color?: string;
-  loading: boolean;
-  cssOverride?: CSSProperties;
-  speedMultiplier?: number;
-}
+export type SpinnerTypeKeys = keyof typeof ReactSpinners;
+
+export type SpinnerProps<T extends SpinnerTypeKeys> = {
+  spinnerType: T;
+} & React.ComponentProps<(typeof ReactSpinners)[T]>;

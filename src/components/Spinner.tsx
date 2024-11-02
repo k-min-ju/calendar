@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactSpinners from 'react-spinners';
-import { SpinnerProps } from '@/types';
+import { SpinnerProps, SpinnerTypeKeys } from '@/types';
 
 /**
  * https://www.davidhu.io/react-spinners/
@@ -13,18 +13,14 @@ import { SpinnerProps } from '@/types';
  * @param props.speedMultiplier - Spinner rotation speed
  * @constructor
  */
-export default function Spinner(props: SpinnerProps): React.JSX.Element {
-  const { spinnerType, size, color, loading, cssOverride, speedMultiplier }: SpinnerProps = props;
-  const LoaderComponent = ReactSpinners[spinnerType];
+export default function Spinner<T extends SpinnerTypeKeys>({
+  spinnerType,
+  ...props
+}: SpinnerProps<T>): React.JSX.Element {
+  const LoaderComponent = ReactSpinners[spinnerType] as React.ComponentType;
   return (
     <div className="react-spinner-loading">
-      <LoaderComponent
-        size={size}
-        color={color}
-        loading={loading}
-        cssOverride={cssOverride}
-        speedMultiplier={speedMultiplier}
-      />
+      <LoaderComponent {...props} />
     </div>
   );
 }
