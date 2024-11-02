@@ -10,7 +10,7 @@ import { useLoading } from '@/context/LoadingProvider.tsx';
  * @description top-level parent component.
  * @constructor
  */
-export default function Calendar() {
+export default function Calendar(): React.JSX.Element {
   const today: Date = new Date();
 
   const [fromDate, setFromDate]: UseState<Date> = useState<Date>(new Date(today.getFullYear(), today.getMonth(), 1));
@@ -72,7 +72,7 @@ export default function Calendar() {
           pickerType="to"
           onChange={toDateChange}
           onInputClick={() => setIsToDatePickerOpen(true)}
-          onClickOutside={(_event: MouseEvent) => setIsToDatePickerOpen(false)}
+          onClickOutside={(_event: MouseEvent): void => setIsToDatePickerOpen(false)}
           toDateValue={toDate}
           minDate={fromMinDate}
           maxDate={toMaxDate > SEARCH_MAX_DATE ? SEARCH_MAX_DATE : toMaxDate}
