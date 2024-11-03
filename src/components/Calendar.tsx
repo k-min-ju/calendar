@@ -65,6 +65,7 @@ export default function Calendar(): React.JSX.Element {
           onChange={fromDateChange}
           fromDateValue={fromDate}
           minDate={fromMinDate}
+          maxDate={toDate}
           dateFormat="yyyy-MM-dd"
         />
         <ReactDatePicker
@@ -74,7 +75,7 @@ export default function Calendar(): React.JSX.Element {
           onInputClick={() => setIsToDatePickerOpen(true)}
           onClickOutside={(_event: MouseEvent): void => setIsToDatePickerOpen(false)}
           toDateValue={toDate}
-          minDate={fromMinDate}
+          minDate={fromDate}
           maxDate={toMaxDate > SEARCH_MAX_DATE ? SEARCH_MAX_DATE : toMaxDate}
           dateFormat="yyyy-MM-dd"
           isToDatePickerOpen={isToDatePickerOpen}
