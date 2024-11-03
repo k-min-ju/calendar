@@ -3,9 +3,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Button } from '@mui/material';
 import { useAxios } from '@/hooks/useAxios';
 import { COUNTRY_CODE, DAYS_OF_WEEK } from '@/configs/constants';
-import { AxiosMethods, HolidayResponse, SearchBtnProps, SearchHoliday } from '@/types';
 import { getFormattedDate } from '@/components/common.ts';
-import { useLoading } from '@/context/LoadingProvider.tsx';
+import { AxiosMethods, HolidayResponse, SearchBtnProps, SearchHoliday } from '@/types';
 
 /**
  * Search Button Component
@@ -19,7 +18,6 @@ import { useLoading } from '@/context/LoadingProvider.tsx';
 export default function SearchBtn(props: SearchBtnProps): React.JSX.Element {
   const { fromDate, toDate, setHolidayRows, setIsShowHolidayList }: SearchBtnProps = props;
   const { axiosGet }: AxiosMethods = useAxios();
-  const { setIsLoading } = useLoading();
 
   // Create an array of year values between fromDate and toDate
   function getYearsArray(fromDateParam: Date, toDateParam: Date): number[] {
@@ -31,12 +29,10 @@ export default function SearchBtn(props: SearchBtnProps): React.JSX.Element {
   // Click the search button to call the holiday API and process the required data
   const searchBtnClick = async (_event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     setIsShowHolidayList(false);
-    setIsLoading(true);
     const yearArray: number[] = getYearsArray(fromDate, toDate);
     const holidayData: HolidayResponse[] = (
       await Promise.all(yearArray.map(year => axiosGet<HolidayResponse[]>(`${year}/${COUNTRY_CODE}`)))
     ).flat();
-    setIsLoading(false);
 
     const startDate: string = getFormattedDate('yyyy-mm-dd', fromDate);
     const endDate: string = getFormattedDate('yyyy-mm-dd', toDate);
